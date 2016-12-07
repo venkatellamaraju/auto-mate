@@ -1,0 +1,18 @@
+'Get the text of Inbox
+oBrowser = Browser("Title:=Inbox.*").Page("Title:=Inbox.*").Link("Title:=Inbox.*").GetROProperty("innertext")
+'If there is unread mail, Display "No New mails"
+'If there is unread mails, Print the number
+If oBrowser = "Inbox" Then
+	Print "There is no New mails!"
+	Else 
+	'Remove White Spaces
+	EC = Trim(oBrowser)
+	'Remove the 'Inbox' Text
+	EC = Replace(oBrowser,"Inbox (","")
+	'Remove (
+	EC = Replace(oBrowser,"(","")
+	'Remove )
+	EC = Replace(oBrowser,")","")
+	'Print the number
+	Print "You have "&EC& "Mails!"
+End If
