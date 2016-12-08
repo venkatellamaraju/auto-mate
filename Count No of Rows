@@ -1,0 +1,6 @@
+'Count How many rows in particular table
+'---------------------------------------
+'Access the Web Table & Count Rows in web tables
+oBrowser = Browser("title:=Inbox.*").Page("title:=Inbox.*").WebTable("").RowCount
+'Print Row Count
+Print oBrowser
