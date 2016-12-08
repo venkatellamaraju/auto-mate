@@ -1,0 +1,12 @@
+'Get the data from rows & Columns
+'=================================
+'Access the Web Table
+Set oBro = Browser("Inbox (291) - venkat.ellamaraj").Page("Inbox (291) - venkat.ellamaraj").WebTable("Click to teach Gmail this")
+'Count the the Row Count
+Rcount = oBro.RowCount
+'Loop until end of the row
+For i = 1 To Rcount-1 Step 1
+	TRow = oBro.GetCellData(i,4)
+	'Print
+	Print TRow
+Next
