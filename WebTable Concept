@@ -1,0 +1,15 @@
+'------------------------------------------------------------
+'WEB TABLE Concept
+'------------------------------------------------------------
+'Generally Web Table contains Rows, Columns, Cells, Cell Data. Additionally, We can count Rows count, Column Count, get the Cell Data, Get the Row with Cell text
+' We will do the following operations on Web Table
+' => Is Web Table Exist in Particular Page
+' => How many Web Tables exist in page
+' => Count How many rows in particular table
+' => Count how many columns in particular table
+' => Get the data from rows
+' => Get the data from Columns
+' => Insert the data to particular Row
+' => Insert the data to particular Column
+' => Get particular Type of object from Cell
+' => Handling Dynamic web table
