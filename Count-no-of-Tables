@@ -1,0 +1,10 @@
+'Count How many web Tables in a page
+'===========================================
+'Access Web Tables in page (You need to create description)
+Set objTable = Description.Create
+objTable("html tag").Value = "TABLE"
+Set oBrowser = Browser("name:=Inbox.*").Page("title:=Inbox.*").ChildObjects(objTable)
+'Count the number of tables
+Result = oBrowser.Count
+'Print it
+MsgBox "No of Web Tables in Web page: " & Result
