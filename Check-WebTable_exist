@@ -1,0 +1,16 @@
+' Check if the browser exist or not
+'======================================
+'Create Description
+Set objTable = Description.Create
+objTable("html tag").Value = "TABLE"
+Set oBrowser = Browser("title:=Inbox.*").Page("title:=Inbox.*").ChildObjects(objTable)
+'Count the Tables
+Result = oBrowser.Count
+'if count greater than zero, print no table exist
+If Result > 0 Then
+	Print "Table Exist!"
+	ElseIf Result = 0 Then
+	Print "Table doesnot exist!"
+	Else
+	Print "Invalid!"
+End If
