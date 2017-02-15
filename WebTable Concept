@@ -1,9 +1,29 @@
 '------------------------------------------------------------
 'WEB TABLE Concept
 '------------------------------------------------------------
+'Web Table Methods
+'-----------------
+'Capture Bitmap
+'Row Count
+'Column Count
+'Child item count
+'Child items => Applies to particular cell of object
+'Child objects => It applies to set of objects ex: Webtable
+'Get Cell data
+'Get Row with Cell text
+'Click
+'Right Click 
+'Middle Click
+'GetROproperty
+'GetTOproperty
+'GetTOProperties
+'SetTOProperty
+'Wait Property
+'Submit
+
+'-----------------------------------------------
 'Generally Web Table contains Rows, Columns, Cells, Cell Data. Additionally, We can count Rows count, Column Count, get the Cell Data, Get the Row with Cell text
 ' We will do the following operations on Web Table
-' => Is Web Table Exist in Particular Page
 ' => How many Web Tables exist in page
 ' => Count How many rows in particular table
 ' => Count how many columns in particular table
@@ -12,4 +32,82 @@
 ' => Insert the data to particular Row
 ' => Insert the data to particular Column
 ' => Get particular Type of object from Cell
-' => Handling Dynamic web table
+' => Handling Dynamic web table & what if column is dynamic
+' => Search Web Table for text
+'=> Find number of occurences of particular text in web table
+'-------------------------------------------------------------
+' => How many Web Tables exist in page
+
+'Set desc = Description.Create
+'desc("html tag").Value = "TABLE"
+'Set bro = Browser("title:=.*").Page("title:=.*").ChildObjects(desc)
+'msgbox bro.Count
+'-------------------------------------------------------------
+' => Count How many rows in particular table
+'RCount = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").RowCount
+'msgbox RCount
+'-------------------------------------------------------------
+' => Count how many columns in particular table
+'CCount = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").ColumnCount(2)
+'msgbox CCount
+'-------------------------------------------------------------
+' => Get the data from Columns
+'RowCount = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").RowCount
+'ColumnCount = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").ColumnCount(i
+'For i = 1 To RowCount Step 1
+'	For j = 1 To ColumnCount Step 1
+'		data = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").GetCellData(i,2)
+'-------------------------------------------------------------
+'=> Get Data from Table
+'*** If you want to get data from particular Row, Just replace i with row number of Webtable.
+'RowCount = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").RowCount
+'For i = 1 To RowCount Step 1
+'ColumnCount = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").ColumnCount(i)
+'	For j = 1 To ColumnCount Step 1
+'		data = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").GetCellData(i,j)
+'		print data
+'	Next
+'Next
+'------------------------------------------------------------
+'=> How to get the row number of particular text in dynamic web table
+'**** Sometimes webtables dynamic in nature. So, if you want to get cell data, you can't use row number. you need to follow this code.
+'**** If column is dynamic then get column count & get header of column name & match the column name with column number.
+'strName = "Eve"
+'
+'search = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").GetRowWithCellText("Eve",1,5)
+'msgbox search
+
+'------------------------------------------------------------
+'=> Find number of occurences of particular text in web table
+'strName = "Eve"
+'
+'RowCount = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").RowCount
+'
+'Total = 0
+'
+'For i = 2 To RowCount Step 1
+'	ColCount = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").ColumnCount(i)
+'	For j = 1 To ColCount Step 1
+'		actName = Browser("HTML Tables").Page("HTML Tables").WebTable("Company").GetCellData(i,j)
+'		If UCase(Trim(strName)) = UCase(Trim(actName)) Then
+'			total = total +1
+'		End If		
+'	Next
+'	
+'Next
+'MsgBox Total
+'====================
+'=> Another Method using Description object
+'Set oBro = Browser("HTML Tables").Page("HTML Tables").WebTable("Company")
+'Set oElement = Description.Create
+'oElement("html tag").value = "TD"
+'oElement("innertext").value = "Eve"
+'
+'Set obj = oBro.ChildObjects(oElement)
+'MsgBox obj.Count
+'============
+' To highlight the count on webapplication
+'For i = 1 To obj.Count Step 1
+'	obj(i).Highlight
+'Next
+'-----------------------------------------------------------
