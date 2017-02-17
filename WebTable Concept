@@ -111,3 +111,19 @@
 '	obj(i).Highlight
 'Next
 '-----------------------------------------------------------
+'StrText = "50"
+'
+'RowCount = Browser("Table").Page("Table").WebTable("Firstname").RowCount
+'For i = 1 To RowCount Step 1
+'	ColCount = Browser("Table").Page("Table").WebTable("Firstname").ColumnCount(i)
+'	For j = 1 To ColCount Step 1
+''		ColHeaders = Browser("Table").Page("Table").WebTable("Firstname").GetCellData(1,i)
+'		ActText = Browser("Table").Page("Table").WebTable("Firstname").GetCellData(i,j)
+'		
+'		If StrText = ActText Then
+'			MsgBox "The Text found at" & ColHeaders & "Header & at Column number:" & j
+'						
+'		End If
+'	Next
+'	
+'Next
