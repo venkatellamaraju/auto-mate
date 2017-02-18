@@ -1,0 +1,6 @@
+' => Get links from web Page using HTML DOM
+' Set oLinks = Browser("Google").Page("Google").Object.getElementsByTagName("A")
+'For i = 1 To oLinks.Length - 1  Step 1
+'	res = oLinks.Item(i).href
+'	print res
+'Next
