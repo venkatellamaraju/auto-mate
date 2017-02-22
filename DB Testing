@@ -1,0 +1,21 @@
+'=> Get User names from Table
+'*** We use Recordset for retreiving data from Database
+'Set objConn = CreateObject("ADODB.Connection")
+'Set objRS = CreateObject("ADODB.RecordSet")
+'
+'objConn.Open "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\Ramana EV\Documents\db1.mdb;Persist Security Info=False"
+'
+'Set objRS = CreateObject("ADODB.RecordSet")
+'
+'query = "select * from Table1"
+'
+'objRS.Open query,objConn
+'objRS.MoveFirst
+'
+'While Not objRs.EOF
+'	user = objRS("user")
+'	print user
+'	objRS.MoveNext
+'Wend
+'
+'============================================================================================================
