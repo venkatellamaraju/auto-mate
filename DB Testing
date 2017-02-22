@@ -31,7 +31,23 @@
 'objComm.Execute
 '
 '===============================================================================================================================
-
+'=> Get RowCount (RecordCount) and ColCount (Fields.Count)
+'Set objConn = CreateObject("ADODB.Connection")
+'objConn.Open "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\Ramana EV\Documents\db1.mdb;Persist Security Info=False"
+'
+'Set objRS = CreateObject("ADODB.RecordSet")
+''Must give Cursor Location & Type. Otherwise it returns -1. Number is depend on particular DB.
+'objRS.CursorLocation=3
+'objRS.CursorType=3
+'query = "Select * from Table1"
+'objRS.Open query,objConn
+'
+'Rows = objRS.RecordCount
+'msgbox Rows
+'
+'Col = objRS.Fields.Count
+'msgbox Col
+'===============================================================================================================================
 
 
 
