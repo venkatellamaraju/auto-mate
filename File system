@@ -1,0 +1,104 @@
+''=> To check whether Drive Exist or not
+'Set objFSO = CreateObject("Scripting.FileSystemObject")
+'
+'res = objFSO.DriveExists("F")
+'
+'If res = True Then
+'	Print "Drive Exists"
+'	Else 
+'	Print "Drive Doesnot exist!"
+'End If
+'=========================================================
+''=> Get the Drive Count
+'Set objFSO = CreateObject("scripting.FileSystemObject")
+'count = objFSO.Drives.Count
+'set oDrives = objFSO.Drives
+''=> Get Drive letters
+'For Each drive in oDrives
+'dletter = drive.DriveLetter 'DriveLetter won't Come in Context help. Its a Property
+'Print dletter
+'Next 
+'==========================================================
+''=> Get Folders under a drive
+'Set objFSO = CreateObject("scripting.FileSystemObject")
+'set folder = objFSO.GetFolder("c:\Windows")
+''=> Get Folder names
+'set FName = folder.SubFolders
+'For Each folder in Fname
+'	name = folder.Name
+'	print name
+'Next
+'==========================================================
+''=> Get Files Count and Files Name
+'Set objFSO = CreateObject("Scripting.FileSystemObject")
+'Set Folder = objFSO.GetFolder("C:\Windows")
+'FolderCount = Folder.Files.Count
+'Print FolderCount
+''=> Get File Names
+'Set Files = Folder.Files
+'For Each file in Files
+'	FileName = file.Type
+'	Print FileName	
+'Next
+'==========================================================
+'=> Read & Write from/To Text files
+'Set objFSO = CreateObject("Scripting.FileSystemObject")
+'Set objTxt = objFSO.OpenTextFile("C:\Users\Ramana EV\Desktop\test.txt",1)
+'Text = objtxt.ReadLine
+'Print Text
+'=> Read from particular Line
+'For i = 1 To 7 Step 1
+'	objTxt.SkipLine
+'Next
+'
+'Line8 = objTxt.ReadLine
+'print Line8
+'===========================================================
+''=> Count Number of Lines in a text file
+'Set objFSO = CreateObject("Scripting.FileSystemObject")
+'Set objTxt = objFSO.OpenTextFile("C:\Users\Ramana EV\Desktop\test.txt",1)
+'i = 1
+'Do
+'	Print "Line " & i & ":" & objTxt.ReadLine
+'	i = i + 1
+'Loop until objTxt.AtEndOfLine
+'===========================================================
+''=> Read User Name & Password (Very Important)
+'Set objFSO = CreateObject("Scripting.FileSystemObject")
+'Set objTxt = objFSO.OpenTextFile("C:\Users\Ramana EV\Desktop\test.txt",1)
+'objTxt.SkipLine
+'objTxt.SkipLine
+'Do
+'	Line1 = objTxt.ReadLine
+'	Data = Split(Line1,vbTab,2) 'It will Split the tabbed text into Arrays
+'	User = Replace(Data(0),vbTab,"") 'It will remove Tabs
+'	Print User
+'	Pwd = Replace(Data(1),vbTab,"")
+'	Print Pwd
+'Loop until objTxt.AtEndOfStream
+'===========================================================
+''=> Write Data into Text file
+'Set objFSO = CreateObject("Scripting.FileSystemObject")
+'Set objFile = objFSO.OpenTextFile("C:\Users\Ramana EV\Desktop\test.txt",8)
+'
+'For i = 1 To 10 Step 1
+'	
+'	User = objFile.Write("User"&i&vbTab&vbTab&"Pwd"&i&vbCrLf)
+'		
+'Next
+'===========================================================
+''=> Search Text
+'Set objFSO = CreateObject("Scripting.FileSystemObject")
+'Set objFile = objFSO.OpenTextFile("C:\Users\Ramana EV\Desktop\test.txt",1)
+'i = 0
+'Do
+'
+'	Text = objFile.ReadAll
+'	ser = "and"
+'	srch = InStr(1,Text,ser)
+'	If srch > 0 Then
+'		i = i + 1
+'	End If
+'	
+'Loop Until objFile.AtEndOfStream
+'Print i
