@@ -1,2 +1,20 @@
 => Validate Mails starting with no digits & special characters.
 (\D(^[0-9]|^)+[a-zA-Z0-9._]+@[a-zA-Z]+\.[a-zA-Z]+)
+'======================================================================================
+''=> Check if mail is in valid format
+'Set oReg = New RegExp
+'oReg.Global = TRUE
+'oReg.IgnoreCase = TRUE
+'oReg.Pattern = "[a-zA-Z0-9._]+@[a-zA-Z]+\.[a-zA-Z]+"
+'
+'mail = "evramana.mcagmail.com"
+'
+'result = oReg.Test(mail)
+'
+'If result = True Then
+'	print "Mail is Valid!"
+'ElseIf result = False Then 
+'	print "Mail not valid!"
+'Else Print "Invalid"
+'End If
+'======================================================================================
