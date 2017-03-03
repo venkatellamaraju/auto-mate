@@ -11,15 +11,7 @@
 'Child objects => It applies to set of objects ex: Webtable
 'Get Cell data
 'Get Row with Cell text
-'Click
-'Right Click 
-'Middle Click
-'GetROproperty
-'GetTOproperty
-'GetTOProperties
-'SetTOProperty
-'Wait Property
-'Submit
+
 
 '-----------------------------------------------
 'Generally Web Table contains Rows, Columns, Cells, Cell Data. Additionally, We can count Rows count, Column Count, get the Cell Data, Get the Row with Cell text
