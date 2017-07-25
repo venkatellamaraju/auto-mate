@@ -1,0 +1,19 @@
+Wordpress from scratch:
+=======================
+1) Download Wordpress files from Wordpress official site & Extract the files.
+2) Navigate to WP_Content\themes folder. Create a new folder with a name of your choice.
+3) Create index.php & style.css files
+4) Add comments to sheet to display it on theme information
+		/* 
+		Theme Name: First theme
+		Author: Author URI: 
+		Version: 1.0		
+		*/
+5) In index.php, Just write following
+	<h1> Hello World! </h1>
+==================================================================================================
+Chapter 2:
+
+1) Create Posts:Generally, Wordpress contains Posts. You create Posts & add content from back-end of Wordpress.
+2) 	Display Posts: 
+	
