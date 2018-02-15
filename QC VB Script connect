@@ -1,0 +1,38 @@
+'Login to QC
+Const myServer = "https://almaustraliapost122.saas.hpe.com/qcbin"
+Const myUser = "ellamarajv"
+Const myPassword = "Capg123$"
+Const myDomain = "PROJECTSQC12"
+Const myProject = "QC_SAP_Automated_Regression"
+
+set tdc = CreateObject("tdapiole80.tdconnection")
+
+tdc.InitConnectionEx myServer 
+tdc.login myUser, myPassword
+tdc.Connect myDomain, myProject
+
+'Connect to Test plan tree
+'Set TDConnection = QCUtil.TDConnection
+'Set treeManager = TDConnection.TreeManager
+'Set subjNode = treeManager.nodebypath("Subject\To be deleted\sampleQCUpload")
+
+ Set QCTreeManager = tdc.TreeManager
+ Set TestNode = QCTreeManager.NodeByPath("Subject\To be deleted\sampleQCUpload")
+' Set testlist = TestNode.FindTests("")
+
+'Creste testFactory object
+Set tsetFact = TestNode.TestFactory
+
+'Create new testCase
+Set tstCase = tsetFact.AddItem("Sample From VBScript5")
+'Enter Description
+tstCase.Field("TS_DESCRIPTION") = "Sample Description"
+'Enter Status
+tstCase.Field("TS_STATUS") = "Design"
+'Enter Complexity
+tstCase.Field("TS_COMPLEXITY") = "Medium"
+'Post the new test case
+tstCase.Post
+
+
+Wait 30
