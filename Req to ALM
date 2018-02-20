@@ -1,0 +1,71 @@
+'Login to QC
+	Const myServer = "https://almaustraliapost122.saas.hpe.com/qcbin"
+	Const myUser = "ellamarajv"
+	Const myPassword = "Capg123$"
+	Const myDomain = "PROJECTSQC12"
+	Const myProject = "QC_SAP_Automated_Regression"
+	
+	'Create an instance
+	set tdc = CreateObject("tdapiole80.tdconnection")
+	
+	'Launch ALM Server
+	tdc.InitConnectionEx myServer
+	print "ALM Server Connected."
+	
+	'Login to ALM 
+	tdc.login myUser, myPassword
+	Print "Logged into ALM."
+	
+	'Connect to Domain & Project
+	tdc.Connect myDomain, myProject
+	Print "Connected to Domain & Project."
+
+'[Optional] Create a Requirements folder
+
+
+'Get the requirement Factory.
+'tdc is the global TDConnection object.
+Set rFact = tdc.ReqFactory
+'Create a requirement
+Set newR = rFact.AddItem(Null)
+
+'For each objTest in newR
+'Print objTest.ID
+'Print objTest.Name
+'Next
+
+' Get the requirement Factory.
+    'tdc is the global TDConnection object.
+    Set rFact = tdc.ReqFactory.Fields
+' Get the List of requirements.
+'    Set myList = rFact.NewList("")
+    
+'    For each item in rFact
+'    	print item.name
+'    Next
+
+With newR
+        .ParentId = "1"
+        .name = "Sample Requirement6"
+        .Field("RQ_USER_01") = "Sample Requirement6"
+        .comment = "This is from VB script"
+        .Priority = "2-High"
+        .Field("RQ_TARGET_RCYC") = "1062"
+'        .Field("RQ_TARGET_REL") = "Sample Release"
+        .Post
+    End With
+' Disconnect from the project. 
+ tdc.Disconnect
+ Print "Disconnected from project!"
+ 
+ ' Log the user off the server
+ tdc.Logout
+ Print "Logged out from ALM"
+ 
+ 'Release the TDConnection object.
+ tdc.ReleaseConnection
+ Print "Connection released"
+ 
+ ' Release the object
+ Set tdc = Nothing
+ Print "Exited"
