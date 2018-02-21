@@ -1,3 +1,20 @@
+' Get the requirement Factory.
+    'tdc is the global TDConnection object.
+    Set DFact = tdc.BugFactory.Fields
+' Get the List of requirements.
+'    Set myList = DFact.NewList("")
+    
+    For each item in DFact
+    	print item.name
+    Next
+
+With newD
+        .Field("BG_SUMMARY") = "This is a sample bug created from VBscript to be deleted soon"
+        
+        .Post
+    End With
+=================================================
+
 BG_ACTUAL_FIX_TIME
 BG_USER_07
 BG_USER_02
