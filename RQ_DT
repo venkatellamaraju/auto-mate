@@ -1,0 +1,111 @@
+	'Connect to Excel File
+	strDataSheetPath = "C:\Automation\ALM.xlsx"
+	DataTable.Import strDataSheetPath
+	
+	'Add Data sheets
+	DataTable.AddSheet "Credentials"
+	strSheet_Cred = "Credentials"
+	DataTable.AddSheet "Requirements"
+	strSheet_Req = "Requirements"
+	DataTable.AddSheet "TestCases"
+	strSheet_TC = "TestCases"
+	DataTable.AddSheet "Defects"
+	strSheet_Def = "Defects"
+	
+	'Import Data from Excel Sheet to Data Table
+	DataTable.ImportSheet strDataSheetPath, "Credentials", strSheet_Cred
+	DataTable.ImportSheet strDataSheetPath, "Requirements", strSheet_Req
+	DataTable.ImportSheet strDataSheetPath, "TestCases", strSheet_TC
+	DataTable.ImportSheet strDataSheetPath, "Defects", strSheet_Def
+	
+	'Get Credentials for Excel to DataTable
+	ALM_Server 	= DataTable.Value("DT_IN_ALM_SERVER", "Credentials")
+	ALM_User	= DataTable.Value("DT_IN_ALM_USER", "Credentials")
+	ALM_Pwd 	= DataTable.Value("DT_IN_ALM_PWD", "Credentials")
+	ALM_Domain 	= DataTable.Value("DT_IN_ALM_DOMAIN", "Credentials")
+	ALM_Project	= DataTable.Value("DT_IN_ALM_PROJECT", "Credentials")
+	
+	'Create ALM instance
+	set tdc = CreateObject("tdapiole80.tdconnection")
+	
+	'Launch ALM Server
+	tdc.InitConnectionEx ALM_Server
+	
+	'Login to ALM 
+	tdc.login ALM_User, ALM_Pwd
+	
+	'Connect to Domain & Project
+	tdc.Connect ALM_Domain, ALM_Project
+	If tdc.ProjectConnected Then
+		Reporter.ReportEvent micPass, "ALM Connection", "ALM Logged in & ALM connected to Project"
+	Else
+		Reporter.ReportEvent micFail, "ALM Connection", "ALM connection failed"
+	End If
+'******************************************************************************************************
+''To Get list of Requirements from ALM Folder & Export it to Excel
+'
+'	'Get the requirement Factory.
+'	Set rFact = tdc.ReqFactory
+'	Set rFilter = rFact.Filter
+'	Dim i
+'	i=1
+'	'Get the List of requirements.
+' 	Set myList = rfact.GetFilteredChildrenList("1",rFilter) 'Here "1" is requirement folder ID.
+'	'Set myList = rFact.NewList("") 'Enable this page to get all the requirements including folders.
+'	   For each item in myList		   	
+'	   	Datatable.GetSheet(strSheet_Req).SetCurrentRow(i)
+'	    ReqName = item.name
+'	    ReqID 	= item.ID
+'	   	DataTable.Value("Req_Name",strSheet_Req) = ReqName
+'	   	DataTable.Value("Req_ID",strSheet_Req) 	 = ReqID
+'	   	i=i+1
+'	   Next
+'	   DataTable.ExportSheet strDataSheetPath, "Requirements", strSheet_Req
+'******************************************************************************************************
+'To Upload requirements to Particular requirement folder
+	
+	'Get the requirement Factory.
+	Set rFact = tdc.ReqFactory
+	
+	RCount = Datatable.GetSheet(strSheet_Req).GetRowCount
+	For i = 1 To RCount Step 1
+		'Create a requirement
+		Set newR = rFact.AddItem(Null)
+		Datatable.GetSheet(strSheet_Req).SetCurrentRow(i)
+		With newR
+        .ParentId 				= DataTable.Value("Parent_ID", strSheet_Req)
+        .name 					= DataTable.Value("Req_Name", strSheet_Req)
+        .Field("RQ_USER_01")	= DataTable.Value("Doc_Name", strSheet_Req)
+        .comment 				= DataTable.Value("Comment", strSheet_Req)
+        .Priority 				= DataTable.Value("Priority", strSheet_Req)
+        .Field("RQ_TARGET_RCYC")= DataTable.Value("Target_Cycle_ID", strSheet_Req)
+		'.Field("RQ_TARGET_REL")= "Sample Release"
+        .Post
+    End With
+	Next
+	
+'******************************************************************************************************	
+''To get all the field names from requirement factory
+
+'	'Get the requirement Factory.
+'    Set rFact = tdc.ReqFactory.Fields
+'    
+'	' Get the List of requirements.
+'    Set myList = rFact.NewList("")
+'    
+'    For each item in rFact
+'    	print item.name
+'    Next
+'******************************************************************************************************
+'Disconnect ALM
+	'Disconnect from the project. 
+	 tdc.Disconnect
+	 
+	 'Log the user off the server
+	 tdc.Logout
+	 
+	 'Release the TDConnection object.
+	 tdc.ReleaseConnection
+	 
+	 'Release the object
+	 Set tdc = Nothing
